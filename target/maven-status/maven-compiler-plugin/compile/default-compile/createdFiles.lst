@@ -1,1 +1,5 @@
+ch\csbe\noten\controllers\Navigator.class
+ch\csbe\noten\controllers\SecondarySceneController.class
+ch\csbe\noten\controllers\PrimarySceneController.class
+ch\csbe\noten\GlobalConstants.class
 ch\csbe\noten\db\DbConnecttionClass.class

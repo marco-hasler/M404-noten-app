@@ -1,2 +1,73 @@
-package ch.csbe.noten.controllers;public class Navigator {
+package ch.csbe.noten.controllers;
+
+import ch.csbe.noten.GlobalConstants;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public  class Navigator {
+   GlobalConstants globalCon = new GlobalConstants();
+
+    @FXML
+
+    public void loadScene(Button button, String scene) throws IOException {
+        if (scene == globalCon.getOverview()){
+            System.out.println(button);
+            loadOverviewScene(button);
+        }else if ( scene == globalCon.getAddGrade()){
+            loadAddGrade(button);
+        }else if ( scene == globalCon.getAddStud()){
+            loadAddStudentScene(button);
+        }
+    }
+
+    /**
+     * will load the primary scene after called from a scene
+     * @param btn this param is needed for binding it to the button id from the scene
+     * @throws IOException
+     */
+    public void  loadOverviewScene(Button btn) throws IOException {
+        System.out.println("loading overview scene in navigator");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/primaryScene.fxml"));
+        loader.setController(new PrimarySceneController());
+        Parent root = loader.load();
+        Stage window = (Stage) btn.getScene().getWindow();
+        window.setScene(new Scene(root));
+    }
+
+    /**
+     * will load the secondary scene after called from a scene
+     * @param btn this param is needed for binding it to the button id from the scene
+     * @throws IOException
+     */
+    public void loadAddStudentScene(Button btn) throws IOException {
+        System.out.println("loadaddstundent in navigator");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/secondaryScene.fxml"));
+        loader.setController(new SecondarySceneController());
+        Parent root = loader.load();
+        Stage window = (Stage) btn.getScene().getWindow();
+        window.setScene(new Scene(root));
+    }
+
+    /**
+     * will load the secondary scene after called from a scene
+     * @param btn this param is needed for binding it to the button id from the scene
+     * @throws IOException
+     */
+    public void loadAddGrade(Button btn) throws IOException {
+        /**
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/secondaryScene.fxml"));
+        loader.setController(new SecondarySceneController());
+        Parent root = loader.load();
+        Stage window = (Stage) btn.getScene().getWindow();
+        window.setScene(new Scene(root));
+         */
+    }
+
+
 }

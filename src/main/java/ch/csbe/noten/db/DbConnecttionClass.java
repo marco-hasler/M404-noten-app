@@ -13,8 +13,12 @@ public class DbConnecttionClass {
 
     static Connection con = null;
     static Statement statement = null;
+
+    /**
+     * establish mysql connection
+     * @throws SQLException
+     */
     public void jdbcConnection() throws SQLException{
-        String url = "jdbc:mysql://localhost:3306/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String query = "select * from schueler";
 
         //whill check if the packages are correctly imported
