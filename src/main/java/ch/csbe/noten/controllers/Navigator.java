@@ -17,7 +17,7 @@ public  class Navigator {
 
     public void loadScene(Button button, String scene) throws IOException {
         if (scene == globalCon.getOverview()){
-            System.out.println(button);
+ 
             loadOverviewScene(button);
         }else if ( scene == globalCon.getAddGrade()){
             loadAddGrade(button);
