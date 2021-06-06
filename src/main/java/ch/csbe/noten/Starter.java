@@ -28,7 +28,7 @@ public class Starter extends Application {
         dbConnecttionClass.jdbcConnection();
         dbConnecttionClass.getSchuelerFromDb();
 
-        //declare primary scene
+        //loading primary scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/primaryScene.fxml"));
         loader.setController(new PrimarySceneController());
 

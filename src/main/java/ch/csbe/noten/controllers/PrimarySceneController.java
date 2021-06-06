@@ -15,12 +15,15 @@ import java.io.IOException;
 
 
 public class PrimarySceneController extends Navigator {
+
     Navigator nav = new Navigator();
     GlobalConstants globCon = new GlobalConstants();
 
     @FXML
     Button btnAddStudent;
+    @FXML
     Button btnOverview;
+    @FXML
     Button btnAddGrade;
 
     /**

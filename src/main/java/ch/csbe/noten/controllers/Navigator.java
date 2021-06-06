@@ -11,13 +11,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public  class Navigator {
+    @FXML
    GlobalConstants globalCon = new GlobalConstants();
 
-    @FXML
+
 
     public void loadScene(Button button, String scene) throws IOException {
         if (scene == globalCon.getOverview()){
- 
+
             loadOverviewScene(button);
         }else if ( scene == globalCon.getAddGrade()){
             loadAddGrade(button);

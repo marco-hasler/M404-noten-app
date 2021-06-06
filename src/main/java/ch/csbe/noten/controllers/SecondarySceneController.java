@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SecondarySceneController {
+
     Navigator nav = new Navigator();
     GlobalConstants globCon = new GlobalConstants();
 
     @FXML
     Button btnAddStudent;
+    @FXML
     Button btnOverview;
+    @FXML
     Button btnAddGrade;
 
     /**
