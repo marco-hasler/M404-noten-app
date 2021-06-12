@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
@@ -10,13 +11,41 @@
             <buttons>
                 <Button fx:id="btnOverview" mnemonicParsing="false" onAction="#navigateToOverview" text="Übersicht" />
                 <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToAddGrade" text="Note hinzufügen" />
-                <Button fx:id="btnAddStudent" mnemonicParsing="false"  text="Schüler hinzufügen" textFill="BLUE">
+                <Button fx:id="btnAddStudent" defaultButton="true" mnemonicParsing="false" text="Schüler hinzufügen" textFill="BLUE" underline="true">
                <effect>
                   <DropShadow />
                </effect></Button>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo.png" />
+               </image>
+            </ImageView>
             </buttons>
         </ButtonBar>
     </top>
     <center>
+            <GridPane BorderPane.alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="123.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="295.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="182.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="305.00000762939453" minHeight="10.0" prefHeight="88.99999237060547" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="296.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="319.0" minHeight="0.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="231.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="231.0" minHeight="0.0" prefHeight="225.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+
+                <children>
+                    <Label text="Vorname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <Label text="Nachname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" text="Hinzufügen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                </children>
+            </GridPane>
     </center>
 </BorderPane>
