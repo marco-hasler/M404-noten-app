@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="btnOverview" mnemonicParsing="false" text="Übersicht" />
+            <Button fx:id="btnOverview" defaultButton="true" mnemonicParsing="false" text="Übersicht" textFill="BLUE">
+               <effect>
+                  <DropShadow />
+               </effect></Button>
             <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToAddGrade" text="Note hinzufügen" />
             <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#navigateToAddStudent" text="Schüler hinzufügen" />
-            <Button mnemonicParsing="false" text="Button" />
         </buttons>
       </ButtonBar>
    </top>
+   <center>
+      <BarChart BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis label="Name" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Modul" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </center>
 </BorderPane>

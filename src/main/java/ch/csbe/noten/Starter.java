@@ -27,6 +27,7 @@ public class Starter extends Application {
         //db connection test dummies
         dbConnecttionClass.jdbcConnection();
         dbConnecttionClass.getSchuelerFromDb();
+        dbConnecttionClass.getModulsFromDb();
 
         //loading primary scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/primaryScene.fxml"));

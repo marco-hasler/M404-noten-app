@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
@@ -8,13 +9,37 @@
         <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
                 <Button fx:id="btnOverview" mnemonicParsing="false" onAction="#navigateToOverview" text="Übersicht" />
-                <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToAddGrade" text="Note hinzufügen" />
+                <Button fx:id="btnAddGrade" defaultButton="true" mnemonicParsing="false" text="Note hinzufügen" textFill="BLUE" underline="true">
+               <effect>
+                  <DropShadow />
+               </effect></Button>
                 <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#navigateToAddStudent" text="Schüler hinzufügen" />
-                <Button mnemonicParsing="false" text="Button" />
             </buttons>
         </ButtonBar>
     </top>
    <center>
-      <Button mnemonicParsing="false" text="secondary" BorderPane.alignment="CENTER" />
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="305.00000762939453" minHeight="10.0" prefHeight="81.99999237060547" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="296.0" minHeight="0.0" prefHeight="82.00000762939453" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="319.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="231.0" minHeight="0.0" prefHeight="224.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+
+         <children>
+            <Label text="Modul" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label text="Note" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Schüler" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ChoiceBox prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
    </center>
 </BorderPane>

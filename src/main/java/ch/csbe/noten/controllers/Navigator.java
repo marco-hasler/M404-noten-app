@@ -12,15 +12,18 @@ import java.io.IOException;
 
 public  class Navigator {
     @FXML
-   GlobalConstants globalCon = new GlobalConstants();
+    GlobalConstants globalCon = new GlobalConstants();
 
 
-
+    //TODO use button id
     public void loadScene(Button button, String scene) throws IOException {
+        System.out.println("id from button" + button.getId());
+        System.out.println("scene = " + scene);
         if (scene == globalCon.getOverview()){
-
+            System.out.println("trigerin loadoverview");
             loadOverviewScene(button);
         }else if ( scene == globalCon.getAddGrade()){
+            System.out.println("trigerin loaddaddgrade in navigator");
             loadAddGrade(button);
         }else if ( scene == globalCon.getAddStud()){
             loadAddStudentScene(button);
@@ -48,8 +51,8 @@ public  class Navigator {
      */
     public void loadAddStudentScene(Button btn) throws IOException {
         System.out.println("loadaddstundent in navigator");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/secondaryScene.fxml"));
-        loader.setController(new SecondarySceneController());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/thirdScene.fxml"));
+        loader.setController(new thirdSceneController());
         Parent root = loader.load();
         Stage window = (Stage) btn.getScene().getWindow();
         window.setScene(new Scene(root));
@@ -61,13 +64,12 @@ public  class Navigator {
      * @throws IOException
      */
     public void loadAddGrade(Button btn) throws IOException {
-        /**
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/secondaryScene.fxml"));
         loader.setController(new SecondarySceneController());
         Parent root = loader.load();
         Stage window = (Stage) btn.getScene().getWindow();
         window.setScene(new Scene(root));
-         */
+
     }
 
 
