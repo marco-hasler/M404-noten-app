@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public  class Navigator {
     @FXML
@@ -16,7 +17,7 @@ public  class Navigator {
 
 
     //TODO use button id
-    public void loadScene(Button button, String scene) throws IOException {
+    public void loadScene(Button button, String scene) throws IOException, SQLException {
         System.out.println("id from button" + button.getId());
         System.out.println("scene = " + scene);
         if (scene == globalCon.getOverview()){
@@ -63,7 +64,7 @@ public  class Navigator {
      * @param btn this param is needed for binding it to the button id from the scene
      * @throws IOException
      */
-    public void loadAddGrade(Button btn) throws IOException {
+    public void loadAddGrade(Button btn) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/secondaryScene.fxml"));
         loader.setController(new SecondarySceneController());
         Parent root = loader.load();

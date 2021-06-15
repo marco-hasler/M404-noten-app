@@ -10,17 +10,12 @@
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-            <Button fx:id="btnOverview" defaultButton="true" mnemonicParsing="false" text="Übersicht" textFill="BLUE">
+            <Button fx:id="btnOverview" defaultButton="true" mnemonicParsing="false" text="Übersicht" textFill="BLUE" underline="true">
                <effect>
                   <DropShadow />
                </effect></Button>
             <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToAddGrade" text="Note hinzufügen" />
             <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#navigateToAddStudent" text="Schüler hinzufügen" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/logo.png" />
-               </image>
-            </ImageView>
         </buttons>
       </ButtonBar>
    </top>
@@ -34,4 +29,11 @@
         </yAxis>
       </BarChart>
    </center>
+   <bottom>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../img/logo.png" />
+         </image>
+      </ImageView>
+   </bottom>
 </BorderPane>

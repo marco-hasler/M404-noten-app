@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class PrimarySceneController extends Navigator {
@@ -30,7 +31,7 @@ public class PrimarySceneController extends Navigator {
      * loading the primary scene
      * @throws IOException
      */
-    public void navigateToOverview() throws IOException {
+    public void navigateToOverview() throws IOException, SQLException {
         nav.loadScene(btnOverview, globCon.getOverview());
     }
 
@@ -38,7 +39,7 @@ public class PrimarySceneController extends Navigator {
      * laoding the secondary scene
      * @throws IOException
      */
-    public void navigateToAddStudent() throws  IOException {
+    public void navigateToAddStudent() throws IOException, SQLException {
         nav.loadScene(btnAddStudent, globCon.getAddStud());
     }
 
@@ -46,7 +47,7 @@ public class PrimarySceneController extends Navigator {
      * loading third scene
      * @throws IOException
      */
-    public void navigateToAddGrade() throws  IOException {
+    public void navigateToAddGrade() throws IOException, SQLException {
         nav.loadScene(btnAddGrade, globCon.getAddGrade());
     }
 
