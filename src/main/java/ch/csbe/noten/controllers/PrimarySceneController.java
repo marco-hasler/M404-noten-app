@@ -1,24 +1,22 @@
 package ch.csbe.noten.controllers;
 
-import javafx.fxml.FXML;
 import ch.csbe.noten.GlobalConstants;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import ch.csbe.noten.db.DbConnecttionClass;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 
-public class PrimarySceneController extends Navigator {
+public class PrimarySceneController extends Navigator implements Initializable {
 
     Navigator nav = new Navigator();
     GlobalConstants globCon = new GlobalConstants();
+    DbConnecttionClass dbCOnn = new DbConnecttionClass();
 
     @FXML
     Button btnAddStudent;
@@ -26,6 +24,8 @@ public class PrimarySceneController extends Navigator {
     Button btnOverview;
     @FXML
     Button btnAddGrade;
+
+
 
     /**
      * loading the primary scene
@@ -51,5 +51,14 @@ public class PrimarySceneController extends Navigator {
         nav.loadScene(btnAddGrade, globCon.getAddGrade());
     }
 
-
+    /**
+     * will be called if the scene is loaded, its needed to get the innerjoin query from the db which will show
+     * all the gardes of the students
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(dbCOnn.getInnerJoinFromDb());
+    }
 }

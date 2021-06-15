@@ -1,5 +1,6 @@
 package ch.csbe.noten.db;
 
+import ch.csbe.noten.Grade;
 import ch.csbe.noten.Modul;
 import ch.csbe.noten.Student;
 import com.mysql.cj.protocol.Resultset;
@@ -99,34 +100,8 @@ public class DbConnecttionClass {
     }
 
 
-
     /**
-     * --------------------------------------------------Grade Section---------------------------------------------
-     */
-
-    /**
-     * Get to db for all shool grades
-     * @return school grades
-     * @throws SQLException
-     */
-    public double getGradeFromDb() throws SQLException {
-        String query = "SELECT * from noten";
-        double grades = 0;
-        try {
-            statement = con.createStatement();
-            ResultSet result = statement.executeQuery(query);
-            while (result.next()) {
-                grades = result.getDouble("note");
-                System.out.println(grades);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return grades;
-    }
-
-    /**
-     * stores a student in the db
+     * saves a student into the db
      * @param firstName
      * @param lastName
      * @throws SQLException
@@ -139,10 +114,82 @@ public class DbConnecttionClass {
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
             preparedStatement.executeUpdate();
-            //https://youtu.be/kpnnXit2br0?t=775
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * --------------------------------------------------Grade Section---------------------------------------------
+     */
+
+    /**
+     * Get to db for all shool grades
+     * @return school grades
+     * @throws SQLException
+     */
+    public String getGradeFromDb() throws SQLException {
+        String query = "SELECT * from noten";
+        String grades = "";
+        try {
+            statement = con.createStatement();
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                grades = result.getString("note");
+                System.out.println(grades);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return grades;
+    }
+
+    public void saveGradeToDb(Student student, Modul modul, Double grade) throws SQLException {
+        String query = "INSERT INTO noten (note, fk_schueler, fk_modul) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setDouble(1, grade);
+            preparedStatement.setInt(2, student.getId());
+            preparedStatement.setInt(3, modul.getModulId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Grade getInnerJoinFromDb(){
+        Grade gradeResponse = null;
+        String query = "SELECT schueler.name as Vorname, schueler.last_name as Nachname, noten.note as Note, modul.modulname as Modul \n" +
+                "From schueler\n" +
+                "Inner join noten\n" +
+                "ON schueler.idschueler = noten.fk_schueler\n" +
+                "Inner join modul\n" +
+                "On noten.fk_modul = modul.idmodul;";
+
+        try {
+            statement = con.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                gradeResponse = new Grade(result.getString("Vorname"), result.getString("Nachname"),
+                        result.getDouble("Note"), result.getString("Modul"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        /**
+         * SELECT schueler.name as Vorname, schueler.last_name as Nachname, noten.note as Note, modul.modulname as Modul
+         * From schueler
+         * Inner join noten
+         * ON schueler.idschueler = noten.fk_schueler
+         * Inner join modul
+         * On noten.fk_modul = modul.idmodul;
+         */
+        return gradeResponse;
+    }
+
+
+
+
 
 }

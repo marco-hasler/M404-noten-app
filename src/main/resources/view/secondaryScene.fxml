@@ -39,8 +39,8 @@
             <Label text="Modul" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Note" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Schüler" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField prefHeight="25.0" prefWidth="122.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="Hinzufügen" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="gradeInputField" prefHeight="25.0" prefWidth="122.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#saveGradeToDb" text="Hinzufügen" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <ComboBox fx:id="scmBox" prefWidth="150.0" promptText="Schüler auswählen" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <ComboBox fx:id="modulPicker" prefWidth="150.0" promptText="Modul auswählen" GridPane.columnIndex="2" GridPane.rowIndex="1" />
