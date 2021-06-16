@@ -34,7 +34,11 @@ public class DbConnecttionClass {
             e.printStackTrace();
         }
         try {
-            con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/noten?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "CsBe12345");
+            con =  DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/noten?useUnicode=true&useJDBCCompliantTimezoneShift" +
+                            "=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+                    "root",
+                    "CsBe12345");
             statement = con.createStatement();
             ResultSet result = statement.executeQuery(query);
         } catch (SQLException e) {
@@ -89,9 +93,6 @@ public class DbConnecttionClass {
             while (result.next()) {
                 student = new Student(result.getString("name"),result.getString("last_name"), result.getInt("idschueler"));
                 studentList.add(student);
-                System.out.println("schueler aus db");
-                System.out.println(student.getFirstName() + student.getLastName());
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,6 +145,14 @@ public class DbConnecttionClass {
         return grades;
     }
 
+    /**
+     * saves grade to db and saves the id of student and modul which we get from params "student" and "modul" as
+     * foreign keys
+     * @param student
+     * @param modul
+     * @param grade
+     * @throws SQLException
+     */
     public void saveGradeToDb(Student student, Modul modul, Double grade) throws SQLException {
         String query = "INSERT INTO noten (note, fk_schueler, fk_modul) VALUES (?, ?, ?)";
         try {
@@ -157,10 +166,13 @@ public class DbConnecttionClass {
         }
     }
 
+    /**
+     * gets all saved grades from db and shows via inner join the modul and student
+     * @return
+     */
     public ObservableList<Grade> getInnerJoinFromDb(){
         Grade gradeResponse = null;
         ObservableList<Grade> gradeObList = FXCollections.observableArrayList();
-
         String query = "SELECT schueler.name as Vorname, schueler.last_name as Nachname, noten.note as Note, modul.modulname as Modul \n" +
                 "From schueler\n" +
                 "Inner join noten\n" +
@@ -171,7 +183,6 @@ public class DbConnecttionClass {
         try {
             statement = con.createStatement();
             ResultSet result = statement.executeQuery(query);
-
             while (result.next()) {
                 gradeResponse = new Grade(result.getString("Vorname"), result.getString("Nachname"),
                         result.getDouble("Note"), result.getString("Modul"));
@@ -180,14 +191,6 @@ public class DbConnecttionClass {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /**
-         * SELECT schueler.name as Vorname, schueler.last_name as Nachname, noten.note as Note, modul.modulname as Modul
-         * From schueler
-         * Inner join noten
-         * ON schueler.idschueler = noten.fk_schueler
-         * Inner join modul
-         * On noten.fk_modul = modul.idmodul;
-         */
         return gradeObList;
     }
 

@@ -23,19 +23,26 @@
         <columns>
           <TableColumn fx:id="firstNameCol" prefWidth="100.0" text="Vorname" />
           <TableColumn fx:id="lastNameCol" prefWidth="152.0" text="Nachname" />
-            <TableColumn fx:id="gradeTableCol" minWidth="0.0" prefWidth="161.0" text="Note" />
-            <TableColumn fx:id="modulTableCol" prefWidth="140.0" text="Modul" />
+            <TableColumn fx:id="gradeTableCol" minWidth="0.0" prefWidth="92.0" text="Note" />
+            <TableColumn fx:id="modulTableCol" prefWidth="208.0" text="Modul" />
         </columns>
       </TableView>
    </left>
+   <center>
+      <TableView fx:id="averageGrade" prefHeight="131.0" prefWidth="127.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="averageGradeCol" prefWidth="246.0" text="Durchschnitt aller Noten" />
+        </columns>
+      </TableView>
+   </center>
    <bottom>
-      <StackedBarChart prefHeight="311.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <BarChart fx:id="barChart" prefHeight="329.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis maxWidth="30.0" minWidth="30.0" side="BOTTOM" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
-      </StackedBarChart>
+      </BarChart>
    </bottom>
 </BorderPane>

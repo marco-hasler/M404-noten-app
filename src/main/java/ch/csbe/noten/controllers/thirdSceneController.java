@@ -54,5 +54,7 @@ public class thirdSceneController extends Navigator{
         String firstname = inputFirstName.getText();
         String lastName = inputLastName.getText();
         dbConn.addStudentToDb(firstname, lastName);
+        inputFirstName.clear();
+        inputLastName.clear();
     }
 }

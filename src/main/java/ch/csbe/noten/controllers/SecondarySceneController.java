@@ -81,8 +81,6 @@ public class SecondarySceneController implements Initializable {
              */
             scmBox.valueProperty().addListener((obs, oldval, newval) -> {
                 if (newval != null)
-                    System.out.println("selected student: " + newval.getFirstName() + newval.getLastName()
-                    + "with id: " + newval.getId());
                 studentToSaveGrade = new Student(newval.getFirstName(), newval.getLastName(), newval.getId());
             });
             modulList = dbConn.getModulsFromDb();
@@ -109,8 +107,6 @@ public class SecondarySceneController implements Initializable {
              */
             modulPicker.valueProperty().addListener((obs, oldval, newval) -> {
                 if (newval != null)
-                    System.out.println("selected modul: " + newval.getModulNr()
-                    + "modul id: " + newval.getModulId());
                 modulToSaveGrade = new Modul(newval.getModulNr(), newval.getModulId());
             });
         } catch (SQLException throwables) {
@@ -126,7 +122,6 @@ public class SecondarySceneController implements Initializable {
      * @throws IOException
      */
     public void navigateToOverview() throws IOException, SQLException {
-        System.out.println(btnOverview);
         nav.loadScene(btnOverview, globCon.getOverview());
     }
 
@@ -168,9 +163,9 @@ public class SecondarySceneController implements Initializable {
             alert.showAndWait();
         }else {
             dbConn.saveGradeToDb(studentToSaveGrade, modulToSaveGrade, parsedGrade);
-            System.out.println("grade = " + grade);
-            System.out.println("student id = " + studentToSaveGrade.getId() + "modul id= " + modulToSaveGrade.getModulId());
+            gradeInputField.clear();
         }
+
 
 
     }
