@@ -3,7 +3,6 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
@@ -19,21 +18,24 @@
         </buttons>
       </ButtonBar>
    </top>
-   <center>
-      <BarChart BorderPane.alignment="CENTER">
+   <left>
+      <TableView fx:id="gradeTableView" prefHeight="149.0" prefWidth="553.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="firstNameCol" prefWidth="100.0" text="Vorname" />
+          <TableColumn fx:id="lastNameCol" prefWidth="152.0" text="Nachname" />
+            <TableColumn fx:id="gradeTableCol" minWidth="0.0" prefWidth="161.0" text="Note" />
+            <TableColumn fx:id="modulTableCol" prefWidth="140.0" text="Modul" />
+        </columns>
+      </TableView>
+   </left>
+   <bottom>
+      <StackedBarChart prefHeight="311.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <xAxis>
-          <CategoryAxis label="Name" side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis label="Modul" side="LEFT" />
+          <NumberAxis side="LEFT" />
         </yAxis>
-      </BarChart>
-   </center>
-   <bottom>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-         <image>
-            <Image url="@../img/logo.png" />
-         </image>
-      </ImageView>
+      </StackedBarChart>
    </bottom>
 </BorderPane>

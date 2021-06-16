@@ -157,8 +157,10 @@ public class DbConnecttionClass {
         }
     }
 
-    public Grade getInnerJoinFromDb(){
+    public ObservableList<Grade> getInnerJoinFromDb(){
         Grade gradeResponse = null;
+        ObservableList<Grade> gradeObList = FXCollections.observableArrayList();
+
         String query = "SELECT schueler.name as Vorname, schueler.last_name as Nachname, noten.note as Note, modul.modulname as Modul \n" +
                 "From schueler\n" +
                 "Inner join noten\n" +
@@ -173,6 +175,7 @@ public class DbConnecttionClass {
             while (result.next()) {
                 gradeResponse = new Grade(result.getString("Vorname"), result.getString("Nachname"),
                         result.getDouble("Note"), result.getString("Modul"));
+                gradeObList.add(gradeResponse);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -185,7 +188,7 @@ public class DbConnecttionClass {
          * Inner join modul
          * On noten.fk_modul = modul.idmodul;
          */
-        return gradeResponse;
+        return gradeObList;
     }
 
 

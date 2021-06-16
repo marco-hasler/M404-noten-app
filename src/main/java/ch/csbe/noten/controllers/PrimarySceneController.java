@@ -1,10 +1,15 @@
 package ch.csbe.noten.controllers;
 
 import ch.csbe.noten.GlobalConstants;
+import ch.csbe.noten.Grade;
 import ch.csbe.noten.db.DbConnecttionClass;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,16 +19,26 @@ import java.util.ResourceBundle;
 
 public class PrimarySceneController extends Navigator implements Initializable {
 
-    Navigator nav = new Navigator();
-    GlobalConstants globCon = new GlobalConstants();
-    DbConnecttionClass dbCOnn = new DbConnecttionClass();
+    private Navigator nav = new Navigator();
+    private GlobalConstants globCon = new GlobalConstants();
+    private DbConnecttionClass dbCOnn = new DbConnecttionClass();
 
     @FXML
-    Button btnAddStudent;
+    private Button btnAddStudent;
     @FXML
-    Button btnOverview;
+    private Button btnOverview;
     @FXML
-    Button btnAddGrade;
+    private Button btnAddGrade;
+    @FXML
+    private TableView<Grade> gradeTableView;
+    @FXML
+    private TableColumn<Grade, String> firstNameCol;
+    @FXML
+    private TableColumn<Grade, String> lastNameCol;
+    @FXML
+    private TableColumn<Grade, Double> gradeTableCol;
+    @FXML
+    private TableColumn<Grade, String> modulTableCol;
 
 
 
@@ -59,6 +74,16 @@ public class PrimarySceneController extends Navigator implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(dbCOnn.getInnerJoinFromDb());
+        System.out.println("primary init");
+        ObservableList<Grade> obGrade = dbCOnn.getInnerJoinFromDb();
+        obGrade.forEach(grade -> {
+            System.out.println(grade.getFirstName());
+        });
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("firstName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("lastName"));
+        modulTableCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("modul"));
+        gradeTableCol.setCellValueFactory(new PropertyValueFactory<Grade, Double>("grade"));
+
+        gradeTableView.setItems(obGrade);
     }
 }

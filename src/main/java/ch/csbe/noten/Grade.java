@@ -1,6 +1,11 @@
 package ch.csbe.noten;
 
 public class Grade {
+    private String firstName;
+    private String lastName;
+    private Double grade;
+    private String modul;
+
     public String getFirstName() {
         return firstName;
     }
@@ -24,8 +29,5 @@ public class Grade {
         return modul;
     }
 
-    private String firstName;
-    private String lastName;
-    private Double grade;
-    private String modul;
+
 }
