@@ -1,10 +1,10 @@
 package ch.csbe.noten.controllers;
 
-import ch.csbe.noten.GlobalConstants;
 import ch.csbe.noten.Grade;
 import ch.csbe.noten.db.DbConnecttionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -12,6 +12,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,16 +20,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 
 public class PrimarySceneController extends Navigator implements Initializable {
 
     private Navigator nav = new Navigator();
-    private GlobalConstants globCon = new GlobalConstants();
     private DbConnecttionClass dbCOnn = new DbConnecttionClass();
     private int counter = 0;
     private Double amountGrades = 0.0;
+
 
     @FXML
     private Button btnAddStudent;
@@ -37,7 +39,9 @@ public class PrimarySceneController extends Navigator implements Initializable {
     @FXML
     private Button btnAddGrade;
     @FXML
-    private TableView<Grade> averageGrade;
+    private Label gradeCount;
+    @FXML
+    private Label averageGrade;
     @FXML
     private TableColumn <Grade, Double> averageGradeCol;
     @FXML
@@ -57,29 +61,20 @@ public class PrimarySceneController extends Navigator implements Initializable {
     @FXML
     private CategoryAxis xAxis;
 
-
     /**
-     * loading the primary scene
-     * @throws IOException
+     * wil use the navigator Class to load other scenes
+     * @param event button which is pressed in the view
      */
-    public void navigateToOverview() throws IOException, SQLException {
-        nav.loadScene(btnOverview, globCon.getOverview());
-    }
-
-    /**
-     * laoding the secondary scene
-     * @throws IOException
-     */
-    public void navigateToAddStudent() throws IOException, SQLException {
-        nav.loadScene(btnAddStudent, globCon.getAddStud());
-    }
-
-    /**
-     * loading third scene
-     * @throws IOException
-     */
-    public void navigateToAddGrade() throws IOException, SQLException {
-        nav.loadScene(btnAddGrade, globCon.getAddGrade());
+    public void navigateToOtherScene(ActionEvent event) throws IOException, SQLException {
+        if (event.getSource().equals(btnOverview)){
+            nav.loadOverviewScene(btnOverview);
+        }else if(event.getSource().equals(btnAddStudent)){
+            nav.loadAddStudentScene(btnAddStudent);
+        }else if(event.getSource().equals(btnAddGrade)){
+            nav.loadAddGrade(btnAddGrade);
+        }else {
+            System.out.println("No button submitted in PrimarySceneController navigate func");
+        }
     }
 
     /**
@@ -93,17 +88,20 @@ public class PrimarySceneController extends Navigator implements Initializable {
         counter = 0;
         amountGrades = 0.0;
         ObservableList<Grade> obGrade = dbCOnn.getInnerJoinFromDb();
+        Comparator<Grade> comparator = Comparator.comparingDouble(Grade::getGrade);
+        FXCollections.sort(obGrade, comparator);
         XYChart.Series<String, Double> gradesForBar = new XYChart.Series<>();
         //this part saves the grades into the barchart and also is needed for our average grades section
         obGrade.forEach(grade -> {
+            System.out.println("grade: " + grade.getGrade());
             counter ++; //<--- neded for calculating the avaerage of grades
             amountGrades += grade.getGrade(); //<-- stores the amount of grades saved in the db
             gradesForBar.getData().add(new XYChart.Data<>(grade.getFirstName() + " "
                     + grade.getLastName(), grade.getGrade()));
+            gradesForBar.setName("Schüler");
         });
         //stores grades in barchart
         barChart.getData().add(gradesForBar);
-
         //defines which Grade propertie are stored in the cols
         firstNameCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("lastName"));
@@ -122,11 +120,11 @@ public class PrimarySceneController extends Navigator implements Initializable {
      * @param amount
      */
     public void calculateAverage(int count, Double amount ){
-        ObservableList<Grade> tmpGradeObj = FXCollections.observableArrayList();
-        Double a = amount / count;
-        Grade gradeToSubmit = new Grade("o", "o", a, "0");
-        tmpGradeObj.add(gradeToSubmit);
-        averageGradeCol.setCellValueFactory(new PropertyValueFactory<Grade, Double>("grade"));
-        averageGrade.setItems(tmpGradeObj);
+        double a = amount / count;
+        Double roundedDouble = Math.round(a * 100.0) / 100.0;
+        String showAverage = Double.toString(roundedDouble);
+        averageGrade.setText(showAverage);
+        gradeCount.setText(Integer.toString(count));
     }
+
 }

@@ -1,11 +1,10 @@
 package ch.csbe.noten.controllers;
 
-import ch.csbe.noten.GlobalConstants;
 import ch.csbe.noten.Modul;
 import ch.csbe.noten.Student;
 import ch.csbe.noten.db.DbConnecttionClass;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -22,7 +21,6 @@ import java.util.ResourceBundle;
 public class SecondarySceneController implements Initializable {
 
     Navigator nav = new Navigator();
-    GlobalConstants globCon = new GlobalConstants();
     DbConnecttionClass dbConn = new DbConnecttionClass();
     private Student studentToSaveGrade;
     private Modul modulToSaveGrade;
@@ -61,12 +59,12 @@ public class SecondarySceneController implements Initializable {
             scmBox.setItems(studentsList);
             /**
              * this allows us to display the name of the student in the combox but also let us
-             * save the id of the selected student
+             * saves the id of the selected student with the second @override
              */
             scmBox.setConverter(new StringConverter<Student>() {
                 @Override
                 public String toString(Student student) {
-                    return student.getFirstName() + student.getLastName();
+                    return student.getFirstName() + " " + student.getLastName();
                 }
 
                 @Override
@@ -77,7 +75,7 @@ public class SecondarySceneController implements Initializable {
             });
             /**
              * listener for the scmBox combobox which catches the value of the scmBox
-             * and update the modulToSaveGrade variable which is needed to save the grade in the
+             * and update the modulToSaveGrade variable which is needed to save the grade in the db
              */
             scmBox.valueProperty().addListener((obs, oldval, newval) -> {
                 if (newval != null)
@@ -116,29 +114,20 @@ public class SecondarySceneController implements Initializable {
 
     }
 
-
     /**
-     * loading  primary scene
-     * @throws IOException
+     * wil use the navigator Class to load other scenes
+     * @param event button which is pressed in the view
      */
-    public void navigateToOverview() throws IOException, SQLException {
-        nav.loadScene(btnOverview, globCon.getOverview());
-    }
-
-    /**
-     * laoding secondary scene
-     * @throws IOException
-     */
-    public void navigateToAddStudent() throws IOException, SQLException {
-        nav.loadScene(btnAddStudent, globCon.getAddStud());
-    }
-
-    /**
-     * loading third scene
-     * @throws IOException
-     */
-    public void navigateToAddGrade() throws IOException, SQLException {
-        nav.loadScene(btnAddGrade, globCon.getAddGrade());
+    public void navigateToOtherScene(ActionEvent event) throws IOException, SQLException {
+        if (event.getSource().equals(btnOverview)){
+            nav.loadOverviewScene(btnOverview);
+        }else if(event.getSource().equals(btnAddStudent)){
+            nav.loadAddStudentScene(btnAddStudent);
+        }else if(event.getSource().equals(btnAddGrade)){
+            nav.loadAddGrade(btnAddGrade);
+        }else {
+            System.out.println("No button submitted in PrimarySceneController navigate func");
+        }
     }
 
     /**
@@ -147,24 +136,34 @@ public class SecondarySceneController implements Initializable {
      * @throws SQLException
      */
     public void saveGradeToDb() throws  IOException, SQLException {
-        String grade = gradeInputField.getText();
-        Double parsedGrade = Double.parseDouble(grade);
-        if (gradeInputField.getText() == ""){
-            alert.setTitle("Keine Note angegeben");
-            alert.setContentText("Bitte eine Note eingeben");
-            alert.showAndWait();
-        }else if(studentToSaveGrade == null) {
-            alert.setTitle("Kein Schüler ausgewählt");
-            alert.setContentText("Bitte einem Schüler auswählen");
-            alert.showAndWait();
-        }else if(modulToSaveGrade == null){
-            alert.setTitle("Kein Modul ausgewählt");
-            alert.setContentText("Bitte ein Modul auswählen");
-            alert.showAndWait();
-        }else {
-            dbConn.saveGradeToDb(studentToSaveGrade, modulToSaveGrade, parsedGrade);
-            gradeInputField.clear();
+        try{
+            String grade = gradeInputField.getText();
+            Double parsedGrade = Double.parseDouble(grade);
+            if (gradeInputField.getText() == ""){
+                alert.setTitle("Keine Note angegeben");
+                alert.setContentText("Bitte eine Note eingeben");
+                alert.showAndWait();
+            }else if(studentToSaveGrade == null) {
+                alert.setTitle("Kein Schüler ausgewählt");
+                alert.setContentText("Bitte einem Schüler auswählen");
+                alert.showAndWait();
+            }else if(modulToSaveGrade == null) {
+                alert.setTitle("Kein Modul ausgewählt");
+                alert.setContentText("Bitte ein Modul auswählen");
+                alert.showAndWait();
+            }else if (parsedGrade > 6 || parsedGrade <1){
+                alert.setTitle("Ungültiger Wert");
+                alert.setContentText("Nur Noten zwischen 1 und 6 erlaubt.");
+                alert.showAndWait();
+            }else {
+                dbConn.saveGradeToDb(studentToSaveGrade, modulToSaveGrade, parsedGrade);
+                gradeInputField.clear();
+            }
         }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+
 
 
 

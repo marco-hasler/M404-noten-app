@@ -32,7 +32,7 @@ public class Starter extends Application {
         //loading primary scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/primaryScene.fxml"));
         loader.setController(new PrimarySceneController());
-
+        primaryStage.setTitle("Noten Verwaltung");
         Parent parent = loader.load();
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);

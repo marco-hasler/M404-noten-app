@@ -178,7 +178,8 @@ public class DbConnecttionClass {
                 "Inner join noten\n" +
                 "ON schueler.idschueler = noten.fk_schueler\n" +
                 "Inner join modul\n" +
-                "On noten.fk_modul = modul.idmodul;";
+                "On noten.fk_modul = modul.idmodul ORDER BY Note ASC ";
+
 
         try {
             statement = con.createStatement();

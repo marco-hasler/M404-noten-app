@@ -1,8 +1,9 @@
 package ch.csbe.noten.controllers;
 
-import ch.csbe.noten.GlobalConstants;
 import ch.csbe.noten.db.DbConnecttionClass;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -12,8 +13,8 @@ import java.sql.SQLException;
 public class thirdSceneController extends Navigator{
 
     Navigator nav = new Navigator();
-    GlobalConstants globCon = new GlobalConstants();
     DbConnecttionClass dbConn = new DbConnecttionClass();
+    private Alert alert = new Alert(Alert.AlertType.WARNING);
 
     @FXML
     Button btnAddStudent;
@@ -27,34 +28,35 @@ public class thirdSceneController extends Navigator{
     TextField inputLastName;
 
     /**
-     * loading the primary scene
-     * @throws IOException
+     * wil use the navigator Class to load other scenes
+     * @param event button which is pressed in the view
      */
-    public void navigateToOverview() throws IOException, SQLException {
-        nav.loadScene(btnOverview, globCon.getOverview());
-    }
-
-    /**
-     * laoding the secondary scene
-     * @throws IOException
-     */
-    public void navigateToAddStudent() throws IOException, SQLException {
-        nav.loadScene(btnAddStudent, globCon.getAddStud());
-    }
-
-    /**
-     * loading third scene
-     * @throws IOException
-     */
-    public void navigateToAddGrade() throws IOException, SQLException {
-        nav.loadScene(btnAddGrade, globCon.getAddGrade());
+    public void navigateToOtherScene(ActionEvent event) throws IOException, SQLException {
+        if (event.getSource().equals(btnOverview)){
+            nav.loadOverviewScene(btnOverview);
+        }else if(event.getSource().equals(btnAddStudent)){
+            nav.loadAddStudentScene(btnAddStudent);
+        }else if(event.getSource().equals(btnAddGrade)){
+            nav.loadAddGrade(btnAddGrade);
+        }else {
+            System.out.println("No button submitted in PrimarySceneController navigate func");
+        }
     }
 
     public void addStudentToDb() throws SQLException {
-        String firstname = inputFirstName.getText();
-        String lastName = inputLastName.getText();
-        dbConn.addStudentToDb(firstname, lastName);
-        inputFirstName.clear();
-        inputLastName.clear();
+
+        if(inputFirstName.getText() != "" && inputLastName.getText() != ""){
+            String firstname = inputFirstName.getText();
+            String lastName = inputLastName.getText();
+            dbConn.addStudentToDb(firstname, lastName);
+            inputFirstName.clear();
+            inputLastName.clear();
+        }else {
+            alert.setTitle("Formular nicht komplett ausgefüllt");
+            alert.setContentText("Bitte Vor und Nchname angeben");
+            alert.showAndWait();
+            System.out.println("keine daten eingegeben");
+        }
+
     }
 }

@@ -8,8 +8,8 @@
     <top>
         <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="btnOverview" mnemonicParsing="false" onAction="#navigateToOverview" text="Übersicht" />
-                <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToAddGrade" text="Note hinzufügen" />
+                <Button fx:id="btnOverview" mnemonicParsing="false" onAction="#navigateToOtherScene" text="Übersicht" />
+                <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToOtherScene" text="Note hinzufügen" />
                 <Button fx:id="btnAddStudent" defaultButton="true" mnemonicParsing="false" text="Schüler hinzufügen" textFill="BLUE" underline="true">
                <effect>
                   <DropShadow />
