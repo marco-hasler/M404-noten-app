@@ -64,7 +64,7 @@ public class PrimarySceneController extends Navigator implements Initializable {
 
     /**
      * wil use the navigator Class to load other scenes
-     * @param event button which is pressed in the view
+     * @param event button which is pressed in the view.
      */
     public void navigateToOtherScene(ActionEvent event) throws IOException, SQLException {
         if (event.getSource().equals(btnOverview)){
