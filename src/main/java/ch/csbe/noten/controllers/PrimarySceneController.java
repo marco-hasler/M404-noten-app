@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
@@ -88,8 +89,6 @@ public class PrimarySceneController extends Navigator implements Initializable {
         counter = 0;
         amountGrades = 0.0;
         ObservableList<Grade> obGrade = dbCOnn.getInnerJoinFromDb();
-        Comparator<Grade> comparator = Comparator.comparingDouble(Grade::getGrade);
-        FXCollections.sort(obGrade, comparator);
         XYChart.Series<String, Double> gradesForBar = new XYChart.Series<>();
         //this part saves the grades into the barchart and also is needed for our average grades section
         obGrade.forEach(grade -> {
@@ -100,8 +99,17 @@ public class PrimarySceneController extends Navigator implements Initializable {
                     + grade.getLastName(), grade.getGrade()));
             gradesForBar.setName("Schüler");
         });
+
+        Collections.sort(gradesForBar.getData(), new Comparator<XYChart.Data<String, Double>>() {
+            @Override
+            public int compare(XYChart.Data<String, Double> o1, XYChart.Data<String, Double> o2) {
+                return o1.getYValue().compareTo(o2.getYValue());
+            }
+        });
+
         //stores grades in barchart
         barChart.getData().add(gradesForBar);
+        //FXCollections.sort(gradesForBar.getData(), comp2);
         //defines which Grade propertie are stored in the cols
         firstNameCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<Grade, String>("lastName"));

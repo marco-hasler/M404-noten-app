@@ -1,0 +1,10 @@
+
+g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Õ¡„Êûÿÿÿÿ
+V
+java:S49730"9Use the "equals" method if value comparison was intended.(ô‘Å¼8ËÒœ£¢/
+V
+java:S49730"9Use the "equals" method if value comparison was intended.(ô‘Å¼8âï«¤£/
+‹
+java:S1130""nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(±™ûÚ8…Ëó¤£/
+S	java:S106*"9Replace this use of System.out or System.err by a logger.(Ÿ°¹¨øÿÿÿÿ
+Z	java:S106:"9Replace this use of System.out or System.err by a logger.(é×íšüÿÿÿÿ8Õô†£¢/

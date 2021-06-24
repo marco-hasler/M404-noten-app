@@ -57,7 +57,7 @@ public class DbConnecttionClass {
      */
     public ObservableList<Modul> getModulsFromDb() throws SQLException {
         String query = "SELECT * from modul";
-        String modules = null;
+        //String modules = null;
         ObservableList<Modul> modulList = FXCollections.observableArrayList();
          try {
              statement = con.createStatement();
@@ -173,12 +173,12 @@ public class DbConnecttionClass {
     public ObservableList<Grade> getInnerJoinFromDb(){
         Grade gradeResponse = null;
         ObservableList<Grade> gradeObList = FXCollections.observableArrayList();
-        String query = "SELECT schueler.name as Vorname, schueler.last_name as Nachname, noten.note as Note, modul.modulname as Modul \n" +
+        String query = "SELECT schueler.name as Vorname, schueler.last_name as Nachname, avg(noten.note) as Note, modul.modulname as Modul \n" +
                 "From schueler\n" +
                 "Inner join noten\n" +
                 "ON schueler.idschueler = noten.fk_schueler\n" +
                 "Inner join modul\n" +
-                "On noten.fk_modul = modul.idmodul ORDER BY Note ASC ";
+                "On noten.fk_modul = modul.idmodul group by idschueler ORDER BY Note ASC ";
 
 
         try {

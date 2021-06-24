@@ -17,15 +17,15 @@ public class thirdSceneController extends Navigator{
     private Alert alert = new Alert(Alert.AlertType.WARNING);
 
     @FXML
-    Button btnAddStudent;
+    private Button btnAddStudent;
     @FXML
-    Button btnOverview;
+    private Button btnOverview;
     @FXML
-    Button btnAddGrade;
+    private Button btnAddGrade;
     @FXML
-    TextField inputFirstName;
+    private TextField inputFirstName;
     @FXML
-    TextField inputLastName;
+    private TextField inputLastName;
 
     /**
      * wil use the navigator Class to load other scenes
