@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="706.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="btnOverview" mnemonicParsing="false" text="Übersicht" />
-            <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToAddGrade" text="Note hinzufügen" />
-            <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#navigateToAddStudent" text="Schüler hinzufügen" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="btnOverview" defaultButton="true" mnemonicParsing="false" text="Übersicht" textFill="BLUE" underline="true">
+               <effect>
+                  <DropShadow />
+               </effect></Button>
+            <Button fx:id="btnAddGrade" mnemonicParsing="false" onAction="#navigateToOtherScene" text="Note hinzufügen" />
+            <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#navigateToOtherScene" text="Schüler hinzufügen" />
         </buttons>
       </ButtonBar>
    </top>
+   <left>
+      <TableView fx:id="gradeTableView" prefHeight="149.0" prefWidth="553.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="firstNameCol" prefWidth="100.0" text="Vorname" />
+          <TableColumn fx:id="lastNameCol" prefWidth="152.0" text="Nachname" />
+            <TableColumn fx:id="gradeTableCol" minWidth="0.0" prefWidth="92.0" text="Note" />
+            <TableColumn fx:id="modulTableCol" prefWidth="208.0" text="Modul" />
+        </columns>
+      </TableView>
+   </left>
+   <bottom>
+      <BarChart fx:id="barChart" prefHeight="441.0" prefWidth="924.0" BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis maxWidth="30.0" minWidth="30.0" side="BOTTOM" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </bottom>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="0.0" prefWidth="3.0" />
+
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="255.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="113.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Gesamtdurchschnitt:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="25.0" />
+               </font></Label>
+            <Label text="Anzahl Noten:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="25.0" />
+               </font></Label>
+            <Label fx:id="gradeCount" text="" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="25.0" />
+               </font></Label>
+            <Label fx:id="averageGrade" text="" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="25.0" />
+               </font></Label>
+         </children>
+      </GridPane>
+   </center>
 </BorderPane>

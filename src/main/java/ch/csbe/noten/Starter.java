@@ -27,11 +27,12 @@ public class Starter extends Application {
         //db connection test dummies
         dbConnecttionClass.jdbcConnection();
         dbConnecttionClass.getSchuelerFromDb();
+        dbConnecttionClass.getModulsFromDb();
 
-        //declare primary scene
+        //loading primary scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/primaryScene.fxml"));
         loader.setController(new PrimarySceneController());
-
+        primaryStage.setTitle("Noten Verwaltung");
         Parent parent = loader.load();
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
